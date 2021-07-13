@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { separeInstances } from './filterData';
+import { separeInstances } from './filterData.js';
 
 function printTable(dataResults, title) {
   let md = `

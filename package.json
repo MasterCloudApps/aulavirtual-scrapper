@@ -5,7 +5,8 @@
   "scripts": {
     "scrapper": "mkdir -p reports && node src/scrapper.js",
     "fullReport": "node src/fullReport.js",
-    "all": "npm run scrapper && npm run convert2md && npm run resume",
+    "shortReport": "node src/shortReport.js",
+    "all": "npm run scrapper && npm run fullReport && npm run shortReport",
     "lint": "eslint src"
   },
   "author": "",
