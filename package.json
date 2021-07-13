@@ -1,0 +1,22 @@
+{
+  "name": "aulavirtual-scrapper",
+  "version": "1.0.0",
+  "description": "Scrapper for Master Cloud Apps Qualifications",
+  "scripts": {
+    "scrapper": "mkdir -p reports && node src/scrapper.js",
+    "fullReport": "node src/fullReport.js",
+    "all": "npm run scrapper && npm run convert2md && npm run resume",
+    "lint": "eslint src"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^10.1.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4"
+  }
+}
