@@ -1,5 +1,7 @@
 # aulavirtual-scrapper
 
+> This scrapper requires node 14 
+
 ### Install dependencies, exec scrapper and create booth reports
 
 ``` bash
