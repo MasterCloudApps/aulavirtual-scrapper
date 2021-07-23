@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { separeInstances } from './filterData.js';
+import { filterData } from './filterData.js';
 
 function printTable(dataResults, title) {
   let md = `
@@ -15,17 +15,17 @@ function printTable(dataResults, title) {
     const filtered = data.filter(d => d.percentage !== '-');
     const media = filtered.reduce((acum, val) => acum + parseFloat(val.percentage.replace(' %', '')), 0) / filtered.length;
 
-    md += `|${subject}|${media ? media.toFixed(2) : 0} %|${filtered.length}/${data.length}|
+    md += `| ${subject} | ${media ? (media/10).toFixed(2) : 0} | ${filtered.length}/${data.length} |
 `;
   }
   return md;
 }
 
 const rawData = JSON.parse(fs.readFileSync(path.resolve('reports', 'data.json')));
-const { firstInstance, secondInstance } = separeInstances(rawData);
+const { ordinary, extraOrdinary } = filterData(rawData);
 
 let md = '';
-md += printTable(firstInstance, 'Primera instancia');
-md += printTable(secondInstance, 'Segunda instancia');
+md += printTable(ordinary, 'Ordinaria');
+md += printTable(extraOrdinary, 'Recuperación');
 
 fs.writeFileSync(path.resolve('reports', 'shortReport.md'), md);

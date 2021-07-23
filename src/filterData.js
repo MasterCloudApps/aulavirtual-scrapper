@@ -31,16 +31,16 @@ function orderAndReplace(originalData) {
   return ordered;
 }
 
-export function separeInstances(originalData) {
-  const firstInstance = {};
-  const secondInstance = {};
+export function filterData(originalData) {
+  const ordinary = {};
+  const extraOrdinary = {};
   for (const [subject, data] of Object.entries(orderAndReplace(originalData))) {
-    firstInstance[subject] = data.filter(d => !/recupera|junio|extraordinaria/gi.test(d.practice));
-    secondInstance[subject] = data.filter(d => /recupera|junio|extraordinaria/gi.test(d.practice));
+    ordinary[subject] = data.filter(d => !/recupera|junio|extraordinaria/gi.test(d.practice));
+    extraOrdinary[subject] = data.filter(d => /recupera|junio|extraordinaria/gi.test(d.practice));
   }
 
   return {
-    firstInstance,
-    secondInstance,
+    ordinary,
+    extraOrdinary,
   };
 }

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { separeInstances } from './filterData.js';
+import { filterData } from './filterData.js';
 
 function printTable(dataResults, title) {
   let md = `
@@ -14,18 +14,18 @@ function printTable(dataResults, title) {
 }
 
 const rawData = JSON.parse(fs.readFileSync(path.resolve('reports', 'data.json')));
-const { firstInstance, secondInstance } = separeInstances(rawData);
+const { ordinary, extraOrdinary } = filterData(rawData);
 
 let md = `# Calificaciones
 
 `;
 
-for (const subject of Object.keys(firstInstance)) {
+for (const subject of Object.keys(ordinary)) {
   md += `
 ### ${subject}
 `;
-  md += printTable(firstInstance[subject], 'Primera instancia');
-  md += printTable(secondInstance[subject], 'Segunda instancia');
+  md += printTable(ordinary[subject], 'Ordinaria');
+  md += printTable(extraOrdinary[subject], 'Recuperación');
 }
 
 fs.writeFileSync(path.resolve('reports', 'fullReport.md'), md);
