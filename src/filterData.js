@@ -35,8 +35,8 @@ export function separeInstances(originalData) {
   const firstInstance = {};
   const secondInstance = {};
   for (const [subject, data] of Object.entries(orderAndReplace(originalData))) {
-    firstInstance[subject] = data.filter(d => !/recupera|junio/gi.exec(d.practice));
-    secondInstance[subject] = data.filter(d => /recupera|junio/gi.exec(d.practice));
+    firstInstance[subject] = data.filter(d => !/recupera|junio|extraordinaria/gi.test(d.practice));
+    secondInstance[subject] = data.filter(d => /recupera|junio|extraordinaria/gi.test(d.practice));
   }
 
   return {
