@@ -11,13 +11,27 @@ function printTable(dataResults, title) {
 |---|---|---|
 `;
 
+  let totalCount = 0;
+  let totalMedia = 0;
+  let totalComplete = 0;
+  let totalSubjects = 0;
+
   for (const [subject, data] of Object.entries(dataResults)) {
     const filtered = data.filter(d => d.percentage !== '-');
     const media = filtered.reduce((acum, val) => acum + parseFloat(val.percentage.replace(' %', '')), 0) / filtered.length;
 
     md += `| ${subject} | ${media ? (media/10).toFixed(2) : 0} | ${filtered.length}/${data.length} |
 `;
+    totalComplete += filtered.length;
+    totalSubjects += data.length;
+    if (!isNaN(media)) {
+      totalCount ++;
+      totalMedia += media;
+    }
   }
+  const media = totalMedia/totalCount;
+  md += `| TOTAL | ${!isNaN(media)?(media/10).toFixed(2):0} | ${totalComplete}/${totalSubjects} |
+`;
   return md;
 }
 
