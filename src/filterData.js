@@ -35,8 +35,8 @@ export function filterData(originalData) {
   const ordinary = {};
   const extraOrdinary = {};
   for (const [subject, data] of Object.entries(orderAndReplace(originalData))) {
-    ordinary[subject] = data.filter(d => !/recupera|junio|extraordinaria/gi.test(d.practice));
-    extraOrdinary[subject] = data.filter(d => /recupera|junio|extraordinaria/gi.test(d.practice));
+    ordinary[subject] = data.filter(d => !/recupera|junio|extraordinaria|Práctica 1 - Despliegue de una aplicación Node|Practica 2 - CloudFormation \(Node\)/gi.test(d.practice));
+    extraOrdinary[subject] = data.filter(d => /recupera|junio|extraordinaria|Práctica 1 - Despliegue de una aplicación Node|Practica 2 - CloudFormation \(Node\)/gi.test(d.practice));
   }
 
   return {
