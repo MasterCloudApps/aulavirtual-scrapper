@@ -11,26 +11,32 @@ function printTable(dataResults, title) {
 |---|---|---|
 `;
 
-  let totalCount = 0;
   let totalMedia = 0;
-  let totalComplete = 0;
-  let totalSubjects = 0;
+  let totalSum = 0;
+  let totalPractices = 0;
+  let totalPracticesCompleted = 0;
+  let totalSubjects = Object.entries(dataResults).length;
+  let totalSubjectsCompleted = 0;
 
   for (const [subject, data] of Object.entries(dataResults)) {
     const filtered = data.filter(d => d.percentage !== '-');
-    const media = filtered.reduce((acum, val) => acum + parseFloat(val.percentage.replace(' %', '')), 0) / filtered.length;
+    const sum = filtered.reduce((acum, val) => acum + parseFloat(val.percentage.replace(' %', '')), 0);
+    const media = sum / filtered.length;
 
     md += `| ${subject} | ${media ? (media/10).toFixed(2) : 0} | ${filtered.length}/${data.length} |
 `;
-    totalComplete += filtered.length;
-    totalSubjects += data.length;
+    totalPracticesCompleted += filtered.length;
+    totalPractices += data.length;
+    totalSum += sum;
     if (!isNaN(media)) {
-      totalCount ++;
+      totalSubjectsCompleted ++;
       totalMedia += media;
     }
   }
-  const media = totalMedia/totalCount;
-  md += `| TOTAL | ${!isNaN(media)?(media/10).toFixed(2):0} | ${totalComplete}/${totalSubjects} |
+  const mediaSubjects = totalMedia/totalSubjectsCompleted;
+  const mediaPractices = totalSum/totalPracticesCompleted;
+  md += `| Media por asignaturas| ${!isNaN(mediaSubjects)?(mediaSubjects/10).toFixed(2):0} | ${totalSubjectsCompleted}/${totalSubjects} |
+| Media por practicas| ${!isNaN(mediaPractices)?(mediaPractices/10).toFixed(2):0} | ${totalPracticesCompleted}/${totalPractices} |
 `;
   return md;
 }
